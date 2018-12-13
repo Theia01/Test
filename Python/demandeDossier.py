@@ -19,18 +19,46 @@
 #       le nombre de fichiers
 #       la taille total du dossier
 import os
-dico_voisin = {"Margaux": "en face", "Eric": "A gauche", "Nathan": "A droite"}
 
 demande_utilisateur_chemin = input("Entrez le chemin (complet) vers un dossier : ")
 while (os.path.isdir(demande_utilisateur_chemin) == False):
         demande_utilisateur_chemin = input("Entrez le chemin (complet) vers un dossier : ")
 
-print(str(len(os.listdir(demande_utilisateur_chemin))) + " fichiers :")
+def nbFichier(chemin):
+        nombrebFichier = 0
+        for fichiers in os.listdir(chemin):
+                if os.path.isfile(chemin + "\\" +fichiers) == True:
+                        nombrebFichier +=1
+                else:
+                        nombrebFichier += nbFichier(chemin + "\\" +fichiers)
+        return nombrebFichier
+        
+def nbDossier(chemin):
+        nombreDossier = 0
+        for fichiers in os.listdir(chemin):
+                if os.path.isfile(chemin + "\\" +fichiers) == True:
+                        pass
+                else:
+                        nombreDossier += nbDossier(chemin + "\\" +fichiers)
+                        nombreDossier +=1
+        return nombreDossier
 
-total = 0
+def tailleFichier(chemin):
+        total = 0
+        for fichiers in os.listdir(chemin):
+                if os.path.isfile(chemin + "\\" +fichiers) == True:
+                        print(str(os.path.getsize(chemin + "\\" +fichiers)) + " octets - " + fichiers)
+                        total += os.path.getsize(chemin + "\\" + fichiers)
+                else:
+                        total += tailleFichier(chemin + "\\" +fichiers)
+        return total
 
-for fichiers in os.listdir(demande_utilisateur_chemin):
-    print(str(os.path.getsize(fichiers)) + " octets - " + str(fichiers))
-    total += os.path.getsize(fichiers)
+print(tailleFichier(demande_utilisateur_chemin))
+print("Il y a "+ str(nbFichier(demande_utilisateur_chemin)) +" fichiers")
+print("Il y a "+ str(nbDossier(demande_utilisateur_chemin)) +" dossiers")
 
-print(str(total))
+
+
+
+
+
