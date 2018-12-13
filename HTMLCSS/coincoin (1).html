@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>coincoin</title>
+    <style>
+        html, body{
+            margin-left: -1em;
+            margin-top:  -0.5em;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #nav{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        
+        }
+        #canard{
+            left: 20px;
+            top: 2px;
+            position: absolute;
+            width: 100px;
+            opacity: 1;
+            transform: rotate(0deg);
+            filter: sepia(0);
+        }
+
+        .canard{
+            display: block;
+            position: absolute;
+            width: 100px;
+            transform: rotate(0deg);
+        }
+
+        #tribucanard{
+            height: 100%;
+            width: 100%;
+        }
+        
+    </style>
+
+    <script>
+        
+        function bye() {
+            x = 20 + Math.round(Math.random()*(screen.width-110));
+            y = 2 + Math.round(Math.random()*(screen.height-300));
+            document.getElementById('canard').style.left = x + 'px';
+            document.getElementById('canard').style.top = y + 'px';
+        }
+        
+        /* function byedef() {
+        }
+
+        function m() {
+        var i = 0;
+        var tribu = "";
+        pleindecanards = setInterval(() => {
+            x1 = Math.round(Math.random()*(screen.width-110));
+            y1 = Math.round(Math.random()*(screen.height-300));
+            tribu = tribu + `<img class="canard" onmouseover="byedef(this);" style='position:absolute; left:${x1}; top:${y1};' src="http://www.lyonfemmes.com/wp-content/uploads/2017/06/314804.jpg">`;
+            document.getElementById('canard').innerHTML = tribu;
+        }, 1000);
+
+        } */
+
+        function armeedecanards(){
+            i = 0;
+            var tribu = "";
+            pleindecanards = setInterval(() => {
+            x1 = 20 + Math.round(Math.random()*(screen.width-110)) + "px";
+            y1 = 2 + Math.round(Math.random()*(screen.height-300)) + "px";
+            tribu = tribu + `<img class="canard" style="position:absolute;left:${x1}; top:${y1};" src="canard.png">`;
+            document.getElementById('tribucanard').innerHTML = tribu;
+            i++
+            if(i>500){
+                clearInterval(pleindecanards);
+            }
+            }, 10);
+            
+        } 
+
+        function canardinvisible(){
+            pouf = setInterval(() => {
+                document.getElementById('canard').style.opacity = 1;
+                setTimeout(() => {
+                    document.getElementById('canard').style.opacity = 0;
+                }, 100);
+            }, 1000);  
+        }
+
+        function etonfaittournerlecanard(){
+            degre = 0;
+            touuuurne = setInterval(() => {
+                degre = degre + 1;
+                document.getElementById('canard').style.transform = `rotate(${degre}deg)`;
+                for(var i = 0; i<501; i++){
+                document.getElementsByClassName('canard')[i].style['transform'] = `rotate(${degre}deg)`;
+                }
+            }, 1);
+                
+                
+        }
+
+        function changedetete(){
+            tete = setInterval(() => {
+                style = ["brightness", "contrast", "grayscale", "saturate", "sepia"];
+                r = Math.floor(Math.random()*style.length); 
+                n = Math.round(Math.random()*200);
+                
+                document.getElementById('canard').style.filter = style[r] + "(" + n + ")"; 
+                for(var w = 0; w<501; w++){
+                    r = Math.floor(Math.random()*style.length); 
+                    n = Math.round(Math.random()*200);
+                document.getElementsByClassName('canard')[w].style['filter'] = style[r] + "(" + n + ")";
+                }
+            }, 10);
+            
+        }
+
+        function miroir() {
+            miroir = setInterval(() => {
+                scal = Math.round(Math.random());
+                    if(scal==0){
+                    document.getElementById('canard').style.transform = "scaleX(1)";
+                    } else {
+                    document.getElementById('canard').style.transform = "scaleX(-1)"; 
+                    }
+            for(var mir = 0; mir<501; mir++){
+                scal = Math.round(Math.random());
+                    if(scal==0){
+                    document.getElementsByClassName('canard')[mir].style.transform = "scaleX(1)";
+                    } else {
+                    document.getElementsByClassName('canard')[mir].style.transform = "scaleX(-1)"; 
+                    }
+            }
+
+            }, 100);
+            
+        }
+
+
+
+    function adieucanard() {
+        for(var adieu = 500; adieu>-1; adieu--){
+            document.getElementsByClassName('canard')[adieu].style['display'] = "none";
+        }
+    }
+
+
+    function cursor() {
+        document.body.style.cursor = url('canard.png');
+            }
+    </script>
+
+
+
+
+
+<script>
+document.onkeydown = function(e) {
+    switch(e.keyCode) {
+        case 65: //a
+            armeedecanards();
+        break;
+
+
+        case 32: //barre espace
+            canardinvisible();
+        break;
+
+        case 90: //z
+            etonfaittournerlecanard();
+        break;
+    
+        case 69: //e
+            changedetete();
+        break;
+
+        case 82: //r
+            miroir();
+        break;
+
+        case 46: //suppr
+            adieucanard();
+        break;
+    }
+}
+
+</script>
+</head>
+<body onload="cursor();">
+    <div id="nav">
+    <img id="canard" onmouseover="bye();" onclick="alert('Gagné')" src="canard.png">
+    <div id="tribucanard"> </div>
+    <div>
+</body>
+</html>

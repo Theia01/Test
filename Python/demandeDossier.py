@@ -3,7 +3,7 @@
 
 #os.path.isfile(chemin)
 #______isdir_________
-#os.paht.getsize(CHEMINCOMPLET)
+#os.path.getsize(CHEMINCOMPLET)
 
 #os    sys    shutil    subprocess
 
@@ -25,6 +25,12 @@ demande_utilisateur_chemin = input("Entrez le chemin (complet) vers un dossier :
 while (os.path.isdir(demande_utilisateur_chemin) == False):
         demande_utilisateur_chemin = input("Entrez le chemin (complet) vers un dossier : ")
 
-for fichiers in os.listdir(demande_utilisateur_chemin):
-    print(fichiers)
+print(str(len(os.listdir(demande_utilisateur_chemin))) + " fichiers :")
 
+total = 0
+
+for fichiers in os.listdir(demande_utilisateur_chemin):
+    print(str(os.path.getsize(fichiers)) + " octets - " + str(fichiers))
+    total += os.path.getsize(fichiers)
+
+print(str(total))
